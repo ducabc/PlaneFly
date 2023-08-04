@@ -64,15 +64,14 @@ public class EnemyManager : MonoBehaviour
 
     protected bool CheckEnemyCount()
     {
-        bool enemyImortal = false;
-        foreach(Enemy enemy in enemyList)
+        foreach (Enemy enemy in enemyList)
         {
             if (!enemy.imortal)
             {
                 return false;
             }
         }
-        enemyImortal = true;
+        bool enemyImortal = true;
         return enemyImortal;
     }
     protected void SpamEnemy(float n)

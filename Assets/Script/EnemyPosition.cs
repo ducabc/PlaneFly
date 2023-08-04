@@ -54,13 +54,13 @@ public class EnemyPosition : MonoBehaviour
     protected void SpamTriangle()
     {
         int n = 5;
-        Vector3 newPos = new Vector3(transform.position.x, transform.position.y, 0);
+        Vector3 newPos = new(transform.position.x, transform.position.y, 0);
         for (int i = 0; i < n; i++)
         {
             newPos = new Vector3(transform.position.x - 0.5f * (i + 1), newPos.y - 0.7f, 0);
             for (int k = 0; k < 2 * i + 1; k++)
             {
-                newPos.x = newPos.x + 0.5f;
+                newPos.x += 0.5f;
                 if (k == 0 || k == 2 * i || i == n - 1)
                 {
                     _enemyTrianglePositions.Add(newPos);
@@ -71,13 +71,13 @@ public class EnemyPosition : MonoBehaviour
     protected void SpamRectangle(int x)
     {
         int n = (16 - x * 2 + 4) / 2;
-        Vector3 newPos = new Vector3(transform.position.x, transform.position.y, 0);
+        Vector3 newPos = new(transform.position.x, transform.position.y, 0);
         for (int i = 0; i < x; i++)
         {
             newPos = new Vector3(transform.position.x - 0.5f * (n / 2 + 1), newPos.y - 0.7f, 0);
             for (int j = 0; j < n; j++)
             {
-                newPos.x = newPos.x + 0.5f;
+                newPos.x += 0.5f;
                 if (j == 0 || j == n - 1 || i == 0 || i == x - 1)
                 {
                     _enemyRectanglePositions.Add(newPos);
@@ -87,13 +87,13 @@ public class EnemyPosition : MonoBehaviour
     }
     protected void SpamSquare()
     {
-        Vector3 newPos = new Vector3(transform.position.x - 1.6f, transform.position.y, 0);
+        Vector3 newPos = new(transform.position.x - 1.6f, transform.position.y, 0);
         for (int i = 0; i < 4; i++)
         {
             newPos = new Vector3(transform.position.x - 1.75f, newPos.y - 0.7f, 0);
             for (int j = 0; j < 4; j++)
             {
-                newPos.x = newPos.x + 0.7f;
+                newPos.x += 0.7f;
                 _enemySquarePositions.Add(newPos);
             }
         }
