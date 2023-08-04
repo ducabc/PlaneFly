@@ -10,18 +10,35 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] protected Transform enemy;
     [SerializeField] protected float timeTran = 0;
     protected int statusEnemy = 1;
+    public bool enemyImortal = false;
     public EnemyPosition enemyPosition;
+
+    private static EnemyManager instance;
+
+    public static EnemyManager Instance => instance;
+
+    private void Awake()
+    {
+        if (instance != null) return;
+        instance = this;
+    }
     private void Start()
     {
+        enemyImortal = true;
         SpamEnemy(16);
         LoadEnemyList();
     }
     private void Update()
     {
-        this.timeTran += Time.deltaTime;
-        if(timeTran > 10)
+        if(CheckEnemyCount())
+        {
+            this.timeTran += Time.deltaTime;
+            enemyImortal = false;
+        }
+        if (timeTran > 5)
         {
             timeTran = 0;
+            enemyImortal=true;
             AutoLoadPosition();
             EnemyMoveToPoint();
             statusEnemy ++;
@@ -43,6 +60,20 @@ public class EnemyManager : MonoBehaviour
             if(enemyList[i] == null) continue;
             enemyList[i].position = positions[i];
         }
+    }
+
+    protected bool CheckEnemyCount()
+    {
+        bool enemyImortal = false;
+        foreach(Enemy enemy in enemyList)
+        {
+            if (!enemy.imortal)
+            {
+                return false;
+            }
+        }
+        enemyImortal = true;
+        return enemyImortal;
     }
     protected void SpamEnemy(float n)
     {
@@ -76,10 +107,10 @@ public class EnemyManager : MonoBehaviour
         this.enemyPosition = transform.GetComponentInChildren<EnemyPosition>();
         switch (statusEnemy)
         {
-            case 1: LoadPosition(enemyPosition._enemySquarePositions); break;
-            case 2: LoadPosition(enemyPosition._enemyRhombusPositions); break;
+            case 4: LoadPosition(enemyPosition._enemySquarePositions); break;
+            case 1: LoadPosition(enemyPosition._enemyRhombusPositions); break;
             case 3: LoadPosition(enemyPosition._enemyRectanglePositions); break;
-            case 4: LoadPosition(enemyPosition._enemyTrianglePositions); break;
+            case 2: LoadPosition(enemyPosition._enemyTrianglePositions); break;
         }
     }
     protected void LoadPosition(List<Vector3> enemyPosition)

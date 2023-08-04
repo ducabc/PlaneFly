@@ -50,8 +50,5 @@ public class DameReceiver : MonoBehaviour
     {
         if (!this.IsDead()) return;
         this.isDead = true;
-        Destroy(transform.parent.gameObject);
     }
-
-
 }

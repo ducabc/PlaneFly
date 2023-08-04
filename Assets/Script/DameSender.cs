@@ -14,7 +14,6 @@ public class DameSender : MonoBehaviour
 
     public void Send(DameReceiver damageReceiver)
     {
-        Debug.Log(this.dmg);
         damageReceiver.Deduct(this.dmg);
     }
 }
